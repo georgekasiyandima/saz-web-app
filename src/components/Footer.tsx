@@ -32,7 +32,6 @@ const Footer = () => {
       return;
     }
 
-    // Add API call logic here if needed
     setMessage('Subscribed successfully!');
     setMessageType('success');
     setEmail('');

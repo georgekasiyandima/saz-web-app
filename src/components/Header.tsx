@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { AppBar, Toolbar, IconButton, Drawer, List, ListItem, ListItemButton, Button, Box } from '@mui/material'; // Added Box
+import { Menu as MenuIcon, Close as CloseIcon } from '@mui/icons-material';
 import Logo from '../assets/logo.svg';
 
 const Header = () => {
@@ -23,94 +25,110 @@ const Header = () => {
     };
   }, []);
 
+  const navItems = [
+    { to: '/', label: 'Home', end: true },
+    { to: '/contact', label: 'Contact' },
+    { to: '/certifications', label: 'Certifications' },
+    { to: '/membership', label: 'Membership' },
+    { to: '/news', label: 'News' },
+    { to: '/contests', label: 'Contests' },
+  ];
+
   return (
-    <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
-      <div className="container">
-        <NavLink to="/" className="logo-link">
-          <img src={Logo} alt="SAZ Logo" className="logo" />
+    <AppBar
+      position="sticky"
+      sx={{
+        backgroundColor: isScrolled ? '#333' : 'transparent',
+        boxShadow: isScrolled ? 3 : 'none',
+        transition: 'all 0.3s ease-in-out',
+      }}
+    >
+      <Toolbar sx={{ maxWidth: '1200px', mx: 'auto', px: 2, width: '100%' }}>
+        <NavLink to="/" style={{ display: 'flex', alignItems: 'center' }}>
+          <img src={Logo} alt="SAZ Logo" style={{ height: '40px' }} />
         </NavLink>
 
-        <button
-          className="mobile-menu-toggle"
+        <Box sx={{ flexGrow: 1 }} />
+
+        <IconButton
+          edge="end"
+          color="inherit"
+          aria-label="menu"
           onClick={toggleMobileMenu}
-          aria-label="Toggle mobile menu"
-          aria-expanded={isMobileMenuOpen}
+          sx={{ display: { xs: 'block', md: 'none' } }}
         >
-          {isMobileMenuOpen ? '✕' : '☰'}
-        </button>
+          {isMobileMenuOpen ? <CloseIcon /> : <MenuIcon />}
+        </IconButton>
 
-        <nav className={`nav ${isMobileMenuOpen ? 'open' : ''}`}>
-          <ul>
-            <li>
-              <NavLink
-                to="/"
-                end
-                className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Home
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/contact"
-                className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Contact
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/certifications"
-                className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Certifications
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/membership"
-                className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Membership
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/news"
-                className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                News
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/contests"
-                className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Contests
-              </NavLink>
-            </li>
-          </ul>
-        </nav>
+        <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 2 }}>
+          {navItems.map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              end={item.end}
+              onClick={() => setIsMobileMenuOpen(false)}
+              style={({ isActive }) => ({
+                color: isActive ? '#fff' : '#ccc',
+                textDecoration: 'none',
+                padding: '8px 16px',
+                '&:hover': { color: '#fff' },
+              })}
+            >
+              {item.label}
+            </NavLink>
+          ))}
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              navigate('/registration');
+              setIsMobileMenuOpen(false);
+            }}
+            sx={{ ml: 2 }}
+          >
+            Join Now
+          </Button>
+        </Box>
 
-        <button
-          className="join-button"
-          onClick={() => {
-            navigate('/registration');
-            setIsMobileMenuOpen(false);
-          }}
-          aria-label="Join now"
+        <Drawer
+          anchor="right"
+          open={isMobileMenuOpen}
+          onClose={toggleMobileMenu}
+          sx={{ display: { md: 'none' } }}
         >
-          Join Now
-        </button>
-      </div>
-    </header>
+          <List>
+            {navItems.map((item) => (
+              <ListItem key={item.to} disablePadding>
+                <ListItemButton
+                  component={NavLink}
+                  to={item.to}
+                  end={item.end}
+                  onClick={toggleMobileMenu}
+                  sx={{
+                    color: '#333',
+                    '&.active': { color: '#800020', fontWeight: 'bold' },
+                  }}
+                >
+                  {item.label}
+                </ListItemButton>
+              </ListItem>
+            ))}
+            <ListItem disablePadding>
+              <ListItemButton
+                component={Button}
+                onClick={() => {
+                  navigate('/registration');
+                  toggleMobileMenu();
+                }}
+                sx={{ color: '#333', justifyContent: 'center' }}
+              >
+                Join Now
+              </ListItemButton>
+            </ListItem>
+          </List>
+        </Drawer>
+      </Toolbar>
+    </AppBar>
   );
 };
 

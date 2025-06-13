@@ -1,17 +1,32 @@
 import React from 'react';
+import { Box, Typography } from '@mui/material';
 
 const News = () => {
   return (
-    <section className="py-12 bg-white">
-      <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-playfair text-burgundy-700 text-center mb-8">
+    <Box
+      component="section"
+      sx={{
+        py: 6,
+        backgroundColor: '#fff',
+      }}
+    >
+      <Box sx={{ maxWidth: '800px', mx: 'auto', px: 2, textAlign: 'center' }}>
+        <Typography
+          variant="h2"
+          sx={{
+            fontSize: '2.5rem',
+            fontFamily: 'Playfair Display, serif',
+            color: '#800020', // Approximate text-burgundy-700
+            mb: 4,
+          }}
+        >
           News
-        </h2>
-        <p className="text-gray-700 text-center">
+        </Typography>
+        <Typography variant="body1" color="text.secondary">
           Stay tuned for the latest updates from the Sommeliers Association of Zimbabwe!
-        </p>
-      </div>
-    </section>
+        </Typography>
+      </Box>
+    </Box>
   );
 };
 

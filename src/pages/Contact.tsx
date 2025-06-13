@@ -1,4 +1,5 @@
 import React, { useState, FormEvent } from 'react';
+import { Box, Grid, Typography, TextField, Button } from '@mui/material';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -54,64 +55,112 @@ const Contact = () => {
   };
 
   return (
-    <section className="py-12 bg-gradient-to-b">
-      <div className="container">
-        <h2 className="text-3xl font-playfair text-burgundy-700 text-center mb-4">
+    <Box
+      component="section"
+      sx={{
+        py: 6,
+        background: 'linear-gradient(to bottom, #fff, #f0f0f5)', // Approximate bg-gradient-to-b
+      }}
+    >
+      <Box sx={{ maxWidth: '1200px', mx: 'auto', px: 2 }}>
+        <Typography
+          variant="h2"
+          sx={{
+            fontSize: '2.5rem',
+            fontFamily: 'Playfair Display, serif',
+            color: '#800020', // Approximate text-burgundy-700
+            textAlign: 'center',
+            mb: 4,
+          }}
+        >
           Contact Us
-        </h2>
-        <div className="flex flex-direction-column md:flex-row justify-between gap-2rem">
-          <div className="w-third bg-white p-6 rounded-lg shadow-lg">
-            <h3 className="text-xl font-poppins text-burgundy-600 mb-4">
-              Get in Touch
-            </h3>
-            <p className="text-gray-700 mb-2">
-              <span className="font-bold">Phone:</span> +263 78 601 5396
-            </p>
-            <p className="text-gray-700">
-              <span className="font-bold">Email:</span> info@zimsomms.com
-            </p>
-          </div>
-          <div className="w-two-thirds">
-            <form className="contact-form" onSubmit={handleSubmit}>
-              <input
-                type="text"
+        </Typography>
+        <Grid container spacing={4} alignItems="stretch">
+          <Grid item xs={12} md={4}>
+            <Box
+              sx={{
+                p: 3,
+                backgroundColor: '#fff',
+                borderRadius: 1,
+                boxShadow: 2,
+              }}
+            >
+              <Typography
+                variant="h3"
+                sx={{
+                  fontSize: '1.25rem',
+                  fontFamily: 'Poppins, sans-serif',
+                  color: '#800000', // Approximate text-burgundy-600
+                  mb: 2,
+                }}
+              >
+                Get in Touch
+              </Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+                <span style={{ fontWeight: 'bold' }}>Phone:</span> +263 78 601 5396
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                <span style={{ fontWeight: 'bold' }}>Email:</span> info@zimsomms.com
+              </Typography>
+            </Box>
+          </Grid>
+          <Grid item xs={12} md={8}>
+            <Box
+              component="form"
+              onSubmit={handleSubmit}
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 2,
+              }}
+            >
+              <TextField
+                label="Your Name"
                 name="name"
-                placeholder="Your Name"
                 value={formData.name}
                 onChange={handleChange}
                 required
+                variant="outlined"
               />
-              <input
-                type="email"
+              <TextField
+                label="Your Email"
                 name="email"
-                placeholder="Your Email"
+                type="email"
                 value={formData.email}
                 onChange={handleChange}
                 required
+                variant="outlined"
               />
-              <textarea
+              <TextField
+                label="Your Message"
                 name="message"
-                placeholder="Your Message"
                 value={formData.message}
                 onChange={handleChange}
-                rows={5}
                 required
-              ></textarea>
-              <button type="submit">Send Message</button>
+                multiline
+                rows={5}
+                variant="outlined"
+              />
+              <Button type="submit" variant="contained" color="primary" sx={{ mt: 2 }}>
+                Send Message
+              </Button>
               {message && (
-                <p
-                  className={`mt-4 text-center ${
-                    messageType === 'success' ? 'text-green-600' : 'text-red-600'
-                  }`}
+                <Typography
+                  variant="body2"
+                  sx={{
+                    mt: 2,
+                    textAlign: 'center',
+                    color: messageType === 'success' ? '#27ae60' : '#e74c3c', // Approximate green-600 and red-600
+                  }}
                 >
                   {message}
-                </p>
+                </Typography>
               )}
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
+            </Box>
+          </Grid>
+        </Grid>
+      </Box>
+    </Box>
   );
 };
 

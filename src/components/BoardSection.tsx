@@ -36,13 +36,18 @@ const BoardSection = () => {
                   flexDirection: 'column',
                   alignItems: 'center',
                   textAlign: 'center',
+                  p: 2, // Added padding for better spacing
                 }}
               >
                 <CardMedia
                   component="img"
                   image={member.image}
                   alt={`${member.name}`}
-                  sx={{ height: 200, width: '100%', objectFit: 'cover' }}
+                  sx={{
+                    height: 250, // Increased height to 250px
+                    width: '100%',
+                    objectFit: 'contain', // Changed to contain to preserve aspect ratio
+                  }}
                 />
                 <CardContent>
                   <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 1 }}>

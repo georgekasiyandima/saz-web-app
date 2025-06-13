@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { Box, Grid, Typography, TextField, Button, IconButton, Link } from '@mui/material'; // Added Link import
+import { Box, Grid, Typography, TextField, Button, IconButton, Link } from '@mui/material';
 import { FaEnvelope, FaPhone, FaLinkedin, FaTwitter, FaFacebook, FaYoutube } from 'react-icons/fa';
 
 const Footer = () => {
@@ -68,7 +68,7 @@ const Footer = () => {
                 type="email"
                 placeholder="Email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
                 variant="outlined"
                 sx={{ mb: 2, backgroundColor: '#fff', borderRadius: 1 }}
                 inputProps={{ 'aria-label': 'Enter your email address to subscribe to our newsletter' }}
@@ -80,10 +80,7 @@ const Footer = () => {
             {message && (
               <Typography
                 variant="body2"
-                sx={{
-                  mt: 1,
-                  color: messageType === 'success' ? 'green' : 'red',
-                }}
+                sx={{ mt: 1, color: messageType === 'success' ? 'green' : 'red' }}
               >
                 {message}
               </Typography>
@@ -163,3 +160,4 @@ const Footer = () => {
 };
 
 export default Footer;
+export {};

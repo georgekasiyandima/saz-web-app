@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Box, Typography, TextField, Button } from '@mui/material';
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
@@ -23,42 +24,72 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="section bg-white">
-      <div className="container">
-        <h2 className="section-title">Contact Us</h2>
-        <form className="contact-form" onSubmit={handleSubmit}>
-          <input
-            type="text"
+    <Box
+      component="section"
+      id="contact"
+      sx={{
+        py: 6,
+        backgroundColor: '#fff',
+      }}
+    >
+      <Box sx={{ maxWidth: '600px', mx: 'auto', px: 2 }}>
+        <Typography variant="h2" sx={{ fontSize: '2.5rem', fontWeight: 'bold', mb: 4, textAlign: 'center' }}>
+          Contact Us
+        </Typography>
+        <Box
+          component="form"
+          onSubmit={handleSubmit}
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 2,
+          }}
+        >
+          <TextField
+            label="Your Name"
             name="name"
-            placeholder="Your Name"
             value={formData.name}
             onChange={handleChange}
             required
+            variant="outlined"
           />
-          <input
-            type="email"
+          <TextField
+            label="Your Email"
             name="email"
-            placeholder="Your Email"
+            type="email"
             value={formData.email}
             onChange={handleChange}
             required
+            variant="outlined"
           />
-          <textarea
+          <TextField
+            label="Your Message"
             name="message"
-            placeholder="Your Message"
             value={formData.message}
             onChange={handleChange}
             required
+            multiline
+            rows={4}
+            variant="outlined"
           />
-          <button type="submit">Send Message</button>
+          <Button type="submit" variant="contained" color="primary" sx={{ mt: 2 }}>
+            Send Message
+          </Button>
           {message && (
-            <p className={`message ${messageType}`}>
+            <Typography
+              variant="body2"
+              sx={{
+                mt: 2,
+                textAlign: 'center',
+                color: messageType === 'success' ? 'green' : 'red',
+              }}
+            >
               {message}
-            </p>
+            </Typography>
           )}
-        </form>
-      </div>
-    </section>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 

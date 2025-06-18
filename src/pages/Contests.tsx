@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Grid, Typography, Card, CardMedia, CardContent, Button } from '@mui/material';
+import { Box, Typography, Card, CardMedia, CardContent, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import SAZ1 from '../assets/SAZ1.jpg';
 import SAZ2 from '../assets/SAZ2.jpg';
